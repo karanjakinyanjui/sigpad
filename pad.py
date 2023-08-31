@@ -3,7 +3,7 @@ from typing import Callable, Optional
 from nicegui.element import Element
 
 
-class Pad(Element, component="signhere12.js"):
+class Pad(Element, component="paSignature.js"):
     def __init__(
         self,
         title: str,
@@ -12,7 +12,6 @@ class Pad(Element, component="signhere12.js"):
         on_close: Optional[Callable] = None
     ) -> None:
         super().__init__()
-        self._props["title"] = title
         self.on("change", on_change)
         self.on("close", on_close)
 

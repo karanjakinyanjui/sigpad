@@ -1,30 +1,20 @@
 export default {
   template: `
-<div id="app" class="flex items-center justify-center">
-  <form ref="form" class="signature-pad-form bg-white p-8 shadow-md rounded-lg w-96">
-    <h1 class="text-2xl font-semibold mb-4">Important Contract</h1>
-    <p class="text-gray-600 mb-4">Important contract description</p>
-    <p class="mb-2"><b>Signature</b></p>
+<div class="flex items-center justify-center max-h-[90vh] overflow-hidden">
+  <form ref="form" class="bg-white py-8 px-4 shadow-md rounded-lg w-full">
+    <p class="mb-2 text-center w-full"><b>Signature</b></p>
     <canvas
       @pointerdown.passive="handlePointerDown"
       @pointerup.passive="handlePointerUp"
       @pointermove.passive="handlePointerMove"
-      ref="canvas" height="100" width="300" class="signature-pad border border-gray-300 mb-4"></canvas>
-    <p>
-      <a
-        @click.prevent="clearPad"
-        href="#" class="clear-button text-blue-500 hover:underline">Clear</a>
-    </p>
-    <button
-      @click.prevent="submit"
-      class="submit-button bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-md mt-4">
-      SUBMIT
-    </button>
-    <button
-      @click.prevent="$emit('close')"
-      class="submit-button bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-md mt-4">
-      Close
-    </button>
+      ref="canvas" :height="height" width="300" class="signature-pad border border-gray-300 mb-4"></canvas>
+      
+      <div class="flex justify-between w-full">
+          <button @click.prevent="clearPad" class="text-sm border border-gray-600 text-gray-600 hover:text-gray-900 hover:border-gray-900 px-4 py-2 rounded">Clear</button>
+          <button @click.prevent="submit" class="text-sm border border-blue-500 text-blue-500 hover:text-white hover:bg-blue-500 px-4 py-2 rounded">Save</button>
+          <button @click.prevent="$emit('close')" class="text-sm border border-red-500 text-red-500 hover:text-white hover:bg-red-500 px-4 py-2 rounded">Close</button>
+      </div>
+
   </form>
 </div>
 
@@ -38,8 +28,10 @@ export default {
       showImage: false,
       positionX: null,
       positionY: null,
+      height: window.innerHeight * 0.7,
     };
   },
+
   methods: {
     handlePointerDown(event) {
       this.write = true;
@@ -68,6 +60,7 @@ export default {
       const imageURL = this.canvas.toDataURL();
       this.$emit("change", imageURL);
       this.clearPad();
+      this.$emit("close");
     },
   },
   props: {},
