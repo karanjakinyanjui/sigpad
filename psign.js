@@ -7,7 +7,7 @@ export default {
       @pointerdown.passive="handlePointerDown"
       @pointerup.passive="handlePointerUp"
       @pointermove.passive="handlePointerMove"
-      ref="canvas" :height="height" width="300" class="signature-pad border border-gray-300 mb-4"></canvas>
+      ref="canvas" :height="height" width="300" class="signature-pad border border-gray-300 mb-4" style="touch-action: none;"></canvas>
       
       <div class="flex justify-between w-full">
           <button @click.prevent="clearPad" class="text-sm border border-gray-600 text-gray-600 hover:text-gray-900 hover:border-gray-900 px-4 py-2 rounded">Clear</button>
